@@ -2,6 +2,7 @@
 using MarsRoverApp.WebService;
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MarsRoverApp
@@ -17,6 +18,16 @@ namespace MarsRoverApp
 
             if (BindingContext is MarsRoverModel model)
                 model.Navigation = Navigation;
+        }
+
+        private async void Entry_Focused(object sender, FocusEventArgs e)
+        {
+            await Task.Delay(100);
+            if (sender is Entry entry)
+            {
+                entry.CursorPosition = 0;
+                entry.SelectionLength = entry.Text.Length;
+            }
         }
     }
 }

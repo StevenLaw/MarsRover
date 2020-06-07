@@ -36,6 +36,9 @@ namespace MarsRoverApp.ViewModel.Commands
                     case "→":
                         VM.Command += "R";
                         break;
+                    case "C":
+                        VM.Command = "";
+                        break;
                 }
             }
         }

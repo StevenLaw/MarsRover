@@ -34,15 +34,17 @@
             Orientation="Horizontal"
             HorizontalOptions="Center">
             <Label Text="x:"/>
-            <Entry Text="{Binding UpperBoundX, Mode=OneWayToSource}"
+            <Entry Text="{Binding UpperBoundX}"
                    Placeholder="0"
                    Keyboard="Numeric"
-                   StyleClass="NumericEntry"/>
+                   StyleClass="NumericEntry"
+                   Focused="Entry_Focused"/>
             <Label Text="y:"/>
-            <Entry Text="{Binding UpperBoundY, Mode=OneWayToSource}"
+            <Entry Text="{Binding UpperBoundY}"
                    Placeholder="0"
                    Keyboard="Numeric"
-                   StyleClass="NumericEntry"/>
+                   StyleClass="NumericEntry"
+                   Focused="Entry_Focused"/>
         </StackLayout>
         <Button 
             Text="Setup Plateau"
@@ -55,16 +57,18 @@
             HorizontalOptions="Center">
             <Label Text="x:"/>
             <Entry 
-                Text="{Binding InitialPositionX, Mode=OneWayToSource}"
+                Text="{Binding InitialPositionX}"
                 Placeholder="0"
                 Keyboard="Numeric"
-                StyleClass="NumericEntry"/>
+                StyleClass="NumericEntry"
+                Focused="Entry_Focused"/>
             <Label Text="y:"/>
             <Entry
-                Text="{Binding InitialPositionY, Mode=OneWayToSource}"
+                Text="{Binding InitialPositionY}"
                 Placeholder="0"
                 Keyboard="Numeric"
-                StyleClass="NumericEntry"/>
+                StyleClass="NumericEntry"
+                Focused="Entry_Focused"/>
         </StackLayout>
         <Picker SelectedItem="{Binding InitialHeading}">
             <Picker.ItemsSource>
@@ -98,11 +102,17 @@
                 StyleClass="ArrowButton"
                 Command="{Binding ArrowButtonCommand}"
                 CommandParameter="→"/>
+            <Button
+                Text="C"
+                StyleClass="ArrowButton"
+                Command="{Binding ArrowButtonCommand}"
+                CommandParameter="C"/>
         </StackLayout>
         
         <Entry Text="{Binding Command, Mode=TwoWay}"/>
         <Label Text="{Binding Result, Mode=OneWay}"/>
-        <Button Text="Send Command" Command="{Binding SendCommand}"/>
+        <Button Text="Send Command" Command="{Binding SendCommand}"
+                Focused="Entry_Focused"/>
     </StackLayout>
 
 </ContentPage>
