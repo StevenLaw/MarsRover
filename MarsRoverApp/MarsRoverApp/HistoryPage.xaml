@@ -11,7 +11,8 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <ListView>
+            <ListView
+                ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                             <TextCell 

@@ -6,8 +6,13 @@ namespace MarsRoverApiModel
 {
     public class RoverPosition
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public char Heading { get; set; }
+        public int X { get; set; } = 0;
+        public int Y { get; set; } = 0;
+        public char Heading { get; set; } = 'N';
+
+        public override string ToString()
+        {
+            return $"{X} {Y} {Heading}";
+        }
     }
 }
