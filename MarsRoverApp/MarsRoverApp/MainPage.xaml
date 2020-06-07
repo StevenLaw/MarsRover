@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:MarsRoverApp.ViewModel"
+             mc:Ignorable="d"
+             x:Class="MarsRoverApp.MainPage">
+    <ContentPage.BindingContext>
+        <vm:MarsRoverModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="Button" Class="ArrowButton">
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="Large"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout
+        Margin="5">
+        <!-- Place new controls here -->
+        <Label Text="Upper Bounds"/>
+        <StackLayout 
+            Orientation="Horizontal"
+            HorizontalOptions="Center">
+            <Label Text="x:"/>
+            <Entry Text="{Binding UpperBoundX, Mode=OneWayToSource}"
+                   Placeholder="0"
+                   Keyboard="Numeric"
+                   StyleClass="NumericEntry"/>
+            <Label Text="y:"/>
+            <Entry Text="{Binding UpperBoundY, Mode=OneWayToSource}"
+                   Placeholder="0"
+                   Keyboard="Numeric"
+                   StyleClass="NumericEntry"/>
+        </StackLayout>
+        <Button 
+            Text="Setup Plateau"
+            Command="{Binding SetupPlateauCommand}"/>
+        
+        
+        <Label Text="Initial Rover Position"/>
+        <StackLayout 
+            Orientation="Horizontal"
+            HorizontalOptions="Center">
+            <Label Text="x:"/>
+            <Entry 
+                Text="{Binding InitialPositionX, Mode=OneWayToSource}"
+                Placeholder="0"
+                Keyboard="Numeric"
+                StyleClass="NumericEntry"/>
+            <Label Text="y:"/>
+            <Entry
+                Text="{Binding InitialPositionY, Mode=OneWayToSource}"
+                Placeholder="0"
+                Keyboard="Numeric"
+                StyleClass="NumericEntry"/>
+        </StackLayout>
+        <Picker SelectedItem="{Binding InitialHeading}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>North</x:String>
+                    <x:String>East</x:String>
+                    <x:String>South</x:String>
+                    <x:String>West</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Button 
+            Text="Setup Rover"
+            Command="{Binding SetupRoverCommand}"/>
+
+        <StackLayout
+            Orientation="Horizontal"
+            HorizontalOptions="Center">
+            <Button
+                Text="←"
+                StyleClass="ArrowButton"
+                Command="{Binding ArrowButtonCommand}"
+                CommandParameter="←"/>
+            <Button
+                Text="↑"
+                StyleClass="ArrowButton"
+                Command="{Binding ArrowButtonCommand}"
+                CommandParameter="↑"/>
+            <Button
+                Text="→"
+                StyleClass="ArrowButton"
+                Command="{Binding ArrowButtonCommand}"
+                CommandParameter="→"/>
+        </StackLayout>
+        
+        <Entry Text="{Binding Command, Mode=TwoWay}"/>
+        <Label Text="{Binding Result, Mode=OneWay}"/>
+        <Button Text="Send Command" Command="{Binding SendCommand}"/>
+    </StackLayout>
+
+</ContentPage>
