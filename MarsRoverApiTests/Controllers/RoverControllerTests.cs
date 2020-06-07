@@ -19,6 +19,7 @@ namespace MarsRoverApi.Controllers.Tests
         {
             // Arrange
             var controller = new RoverController();
+            controller.Delete();
             List<HistoryRecord> expectedHistory = new List<HistoryRecord>
             {
                 new HistoryRecord
@@ -114,6 +115,7 @@ namespace MarsRoverApi.Controllers.Tests
         {
             // Arrange
             var controller = new RoverController();
+            controller.Delete();
             HistoryRecord expectedRecord1 = new HistoryRecord
             {
                 Command = "0 0 -> 5 5",
@@ -167,6 +169,7 @@ namespace MarsRoverApi.Controllers.Tests
         {
             // Arrange
             var controller = new RoverController();
+            controller.Delete();
             string moveResultEx1 = "1 3 N";
             string moveResultEx2 = "5 1 E";
 
@@ -207,6 +210,7 @@ namespace MarsRoverApi.Controllers.Tests
         {
             // Arrange
             var controller = new RoverController();
+            controller.Delete();
             int plateauX = 5;
             int plateauY = 5;
             int plateauX2 = 24;
@@ -236,18 +240,9 @@ namespace MarsRoverApi.Controllers.Tests
         {
             // Arrange
             var controller = new RoverController();
-            RoverPosition rover1 = new RoverPosition
-            {
-                X = 1,
-                Y = 2,
-                Heading = 'N'
-            };
-            RoverPosition rover2 = new RoverPosition
-            {
-                X = 3,
-                Y = 3,
-                Heading = 'E'
-            };
+            controller.Delete();
+            Rover rover1 = new Rover(1, 2, 'N');
+            Rover rover2 = new Rover(3, 3, 'E');
 
             // Act
             var result1 = controller.Post(new CommandBody
@@ -271,6 +266,7 @@ namespace MarsRoverApi.Controllers.Tests
         {
             // Arrange
             var controller = new RoverController();
+            controller.Delete();
             string bad = "test";
             string badExpected = "Bad Command Type: 0";
             string moveExpected = "Malformed move command: test";

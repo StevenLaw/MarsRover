@@ -9,14 +9,10 @@ namespace MarsRoverApi.Controllers
 {
     public class RoverController : ApiController
     {
-        private const int PLATEAU_LOWER_X = 0;
-        private const int PLATEAU_LOWER_Y = 0;
-        private int plateauUpperX = 0;
-        private int plateauUpperY = 0;
+        private static Plateau plateau = new Plateau();
+        private static Rover rover = new Rover();
 
-        private RoverPosition roverPosition = new RoverPosition();
-
-        private List<HistoryRecord> history = new List<HistoryRecord>();
+        private static List<HistoryRecord> history = new List<HistoryRecord>();
 
         /// <summary>
         /// Get route "api/rover"
@@ -79,9 +75,8 @@ namespace MarsRoverApi.Controllers
         /// </summary>
         public void Delete()
         {
-            plateauUpperX = 0;
-            plateauUpperY = 0;
-            roverPosition = new RoverPosition();
+            plateau = new Plateau();
+            rover = new Rover();
             history.Clear();
         }
 
@@ -94,22 +89,7 @@ namespace MarsRoverApi.Controllers
         /// </returns>
         private string Move(string command)
         {
-            command = command.ToUpper();
-            foreach(char c in command)
-            {
-                switch(c)
-                {
-                    case 'L':
-                        Turn(left: true);
-                        break;
-                    case 'R':
-                        Turn(left: false);
-                        break;
-                    case 'M':
-                        Move();
-                        break;
-                }
-            }
+            rover.Move(command, plateau);
             history.Add(new HistoryRecord
             {
                 Command = command,
@@ -117,71 +97,10 @@ namespace MarsRoverApi.Controllers
             });
             history.Add(new HistoryRecord
             {
-                Command = roverPosition.ToString(),
+                Command = rover.ToString(),
                 Input = false
             });
-            return roverPosition.ToString();
-        }
-
-        /// <summary>
-        /// Moves this instance.
-        /// </summary>
-        private void Move()
-        {
-            switch (roverPosition.Heading)
-            {
-                case 'N':
-                    if (plateauUpperY > roverPosition.Y)
-                        roverPosition.Y++;
-                    break;
-                case 'E':
-                    if (plateauUpperX > roverPosition.X)
-                        roverPosition.X++;
-                    break;
-                case 'S':
-                    if (PLATEAU_LOWER_Y < roverPosition.Y)
-                        roverPosition.Y--;
-                    break;
-                case 'W':
-                    if (PLATEAU_LOWER_X < roverPosition.X)
-                        roverPosition.X--;
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Turns.
-        /// </summary>
-        /// <param name="left">if set to <c>true</c> turn left otherwise turn right.</param>
-        private void Turn(bool left)
-        {
-            switch (roverPosition.Heading)
-            {
-                case 'N':
-                    if (left)
-                        roverPosition.Heading = 'W';
-                    else
-                        roverPosition.Heading = 'E';
-                    break;
-                case 'E':
-                    if (left)
-                        roverPosition.Heading = 'N';
-                    else
-                        roverPosition.Heading = 'S';
-                    break;
-                case 'S':
-                    if (left)
-                        roverPosition.Heading = 'E';
-                    else
-                        roverPosition.Heading = 'W';
-                    break;
-                case 'W':
-                    if (left)
-                        roverPosition.Heading = 'S';
-                    else
-                        roverPosition.Heading = 'N';
-                    break;
-            }
+            return rover.ToString();
         }
 
         /// <summary>
@@ -194,10 +113,8 @@ namespace MarsRoverApi.Controllers
         /// </returns>
         private string SetupPlateau(int x, int y)
         {
-            plateauUpperX = x;
-            plateauUpperY = y;
+            plateau = new Plateau(x, y);
 
-            string result = $"{PLATEAU_LOWER_X} {PLATEAU_LOWER_Y} -> {plateauUpperX} {plateauUpperY}";
 
             history.Add(new HistoryRecord
             {
@@ -206,11 +123,11 @@ namespace MarsRoverApi.Controllers
             });
             history.Add(new HistoryRecord
             {
-                Command = result,
+                Command = plateau.ToString(),
                 Input = false
             });
 
-            return $"{PLATEAU_LOWER_X} {PLATEAU_LOWER_Y} -> {plateauUpperX} {plateauUpperY}";
+            return plateau.ToString();
         }
 
         /// <summary>
@@ -224,22 +141,20 @@ namespace MarsRoverApi.Controllers
         /// </returns>
         private string SetupRover(int x, int y, char heading)
         {
-            roverPosition.X = x;
-            roverPosition.Y = y;
-            roverPosition.Heading = heading;
+            rover = new Rover(x, y, heading);
 
             history.Add(new HistoryRecord
             {
-                Command = roverPosition.ToString(),
+                Command = rover.ToString(),
                 Input = true
             });
             history.Add(new HistoryRecord
             {
-                Command = roverPosition.ToString(),
+                Command = rover.ToString(),
                 Input = false
             });
 
-            return roverPosition.ToString();
+            return rover.ToString();
         }
 
         /// <summary>
