@@ -19,4 +19,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\MarsRoverApiModel\MarsRoverApiModel.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="HistoryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

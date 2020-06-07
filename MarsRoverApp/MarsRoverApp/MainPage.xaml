@@ -9,6 +9,7 @@
     <ContentPage.BindingContext>
         <vm:MarsRoverModel/>
     </ContentPage.BindingContext>
+    
     <ContentPage.Resources>
         <Style TargetType="Button" Class="ArrowButton">
             <Setter Property="WidthRequest" Value="50"/>
@@ -16,6 +17,14 @@
             <Setter Property="FontSize" Value="Large"/>
         </Style>
     </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="History"
+            Order="Secondary"
+            Priority="0"
+            Command="{Binding GetHistoryCommand}"/>
+    </ContentPage.ToolbarItems>
 
     <StackLayout
         Margin="5">

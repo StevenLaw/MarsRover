@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using Xamarin.Forms;
 
 namespace MarsRoverApp.ViewModel
 {
@@ -94,10 +95,13 @@ namespace MarsRoverApp.ViewModel
             }
         }
 
+        public INavigation Navigation { get; set; }
+
         public SetupPlateauCommand SetupPlateauCommand { get; set; }
         public SetupRoverCommand SetupRoverCommand { get; set; }
         public SendCommand SendCommand { get; set; }
         public ArrowButtonCommand ArrowButtonCommand { get; set; }
+        public GetHistoryCommand GetHistoryCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -109,6 +113,7 @@ namespace MarsRoverApp.ViewModel
             SetupRoverCommand = new SetupRoverCommand(this);
             SendCommand = new SendCommand(this);
             ArrowButtonCommand = new ArrowButtonCommand(this);
+            GetHistoryCommand = new GetHistoryCommand(this);
         }
 
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

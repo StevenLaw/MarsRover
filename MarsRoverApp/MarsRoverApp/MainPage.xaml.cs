@@ -1,4 +1,5 @@
-﻿using MarsRoverApp.WebService;
+﻿using MarsRoverApp.ViewModel;
+using MarsRoverApp.WebService;
 using System;
 using System.ComponentModel;
 using Xamarin.Forms;
@@ -13,23 +14,9 @@ namespace MarsRoverApp
         public MainPage()
         {
             InitializeComponent();
-        }
 
-        //private async void Button_Clicked(object sender, EventArgs e)
-        //{
-        //    var client = DependencyService.Get<IRoverService>();
-        //    if (client != null)
-        //    {
-        //        var result = await client.SendCommand(txtComand.Text);
-        //        if (client.Success)
-        //        {
-        //            lblResult.Text = result;
-        //        }
-        //        else
-        //        {
-        //            lblResult.Text = client.ErrorMessage;
-        //        }
-        //    }
-        //}
+            if (BindingContext is MarsRoverModel model)
+                model.Navigation = Navigation;
+        }
     }
 }
