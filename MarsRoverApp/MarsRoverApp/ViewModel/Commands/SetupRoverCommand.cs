@@ -24,20 +24,6 @@ namespace MarsRoverApp.ViewModel.Commands
         {
             var client = new RoverServiceClient();
             VM.Result = await client.SetupRoverAsync(VM.InitialPositionX, VM.InitialPositionY, VM.HeadingChar);
-
-            //var client = DependencyService.Get<IRoverService>();
-            //if (client != null)
-            //{
-            //    var result = await client.SetupRover(VM.InitialPositionX, VM.InitialPositionY, VM.HeadingChar);
-            //    if (client.Success)
-            //    {
-            //        VM.Result = result;
-            //    }
-            //    else
-            //    {
-            //        VM.Result = client.ErrorMessage;
-            //    }
-            //}
         }
     }
 }
