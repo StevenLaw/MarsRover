@@ -104,6 +104,7 @@ namespace MarsRoverApp.ViewModel
         public GetHistoryCommand GetHistoryCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler RedrawCanvas;
 
         public MarsRoverModel()
         {
@@ -122,6 +123,11 @@ namespace MarsRoverApp.ViewModel
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public void RaiseRedrawCanvas()
+        {
+            RedrawCanvas?.Invoke(this, new EventArgs());
         }
     }
 }

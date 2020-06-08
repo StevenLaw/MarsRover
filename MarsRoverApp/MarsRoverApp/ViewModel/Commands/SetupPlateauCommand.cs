@@ -24,6 +24,7 @@ namespace MarsRoverApp.ViewModel.Commands
         {
             var client = new RoverServiceClient();
             VM.Result = await client.SetupPlateauAsync(VM.UpperBoundX, VM.UpperBoundY);
+            VM.RaiseRedrawCanvas();
         }
     }
 }

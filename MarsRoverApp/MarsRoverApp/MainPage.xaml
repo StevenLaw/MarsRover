@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:vm="clr-namespace:MarsRoverApp.ViewModel"
              mc:Ignorable="d"
              x:Class="MarsRoverApp.MainPage">
@@ -113,6 +114,8 @@
         <Label Text="{Binding Result, Mode=OneWay}"/>
         <Button Text="Send Command" Command="{Binding SendCommand}"
                 Focused="Entry_Focused"/>
+
+        <skia:SKCanvasView x:Name="canvas" PaintSurface="canvas_PaintSurface"/>
     </StackLayout>
 
 </ContentPage>

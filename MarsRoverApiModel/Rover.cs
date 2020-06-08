@@ -9,14 +9,26 @@ namespace MarsRoverApiModel
         public int X { get; private set; } = 0;
         public int Y { get; private set; } = 0;
         public char Heading { get; private set; } = 'N';
+        public List<Tuple<int, int>> Path { get; private set; }
 
-        public Rover() {}
+        public Rover() 
+        {
+            Path = new List<Tuple<int, int>>
+            {
+                new Tuple<int, int>(X, Y)
+            };
+        }
 
         public Rover(int x, int y, char heading)
         {
             X = x;
             Y = y;
             Heading = heading;
+
+            Path = new List<Tuple<int, int>>
+            {
+                new Tuple<int, int>(X, Y)
+            };
         }
 
         public override string ToString()
@@ -56,7 +68,7 @@ namespace MarsRoverApiModel
         /// <summary>
         /// Moves this instance.
         /// </summary>
-        public void Move(Plateau plateau)
+        private void Move(Plateau plateau)
         {
             switch (Heading)
             {
@@ -77,13 +89,14 @@ namespace MarsRoverApiModel
                         X--;
                     break;
             }
+            Path.Add(new Tuple<int, int>(X, Y));
         }
 
         /// <summary>
         /// Turns.
         /// </summary>
         /// <param name="left">if set to <c>true</c> turn left otherwise turn right.</param>
-        public void Turn(bool left)
+        private void Turn(bool left)
         {
             switch (Heading)
             {
