@@ -1,9 +1,10 @@
-﻿using MarsRoverApp.ViewModel.Commands;
+﻿using MarsRoverApiModel;
+using MarsRoverApp.ViewModel.Commands;
+using MarsRoverApp.WebService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
@@ -25,13 +26,15 @@ namespace MarsRoverApp.ViewModel
         private int initialPositionX;
         private int upperBoundY;
         private int upperBoundX;
+        private Plateau currentPlateau;
+        private Rover currentRover;
 
-        public int UpperBoundX 
-        { 
+        public int UpperBoundX
+        {
             get => upperBoundX;
-            set 
+            set
             {
-                upperBoundX = value; 
+                upperBoundX = value;
                 NotifyPropertyChanged();
             }
         }
@@ -44,8 +47,8 @@ namespace MarsRoverApp.ViewModel
                 NotifyPropertyChanged();
             }
         }
-        public int InitialPositionX 
-        { 
+        public int InitialPositionX
+        {
             get => initialPositionX;
             set
             {
@@ -63,8 +66,8 @@ namespace MarsRoverApp.ViewModel
             }
         }
         //Maybe set the name and pull first char when sending call
-        public string InitialHeading 
-        { 
+        public string InitialHeading
+        {
             get => initialHeading;
             set
             {
@@ -94,6 +97,27 @@ namespace MarsRoverApp.ViewModel
                 NotifyPropertyChanged();
             }
         }
+        public Plateau CurrentPlateau 
+        { 
+            get => currentPlateau;
+            set
+            {
+                currentPlateau = value;
+                //NotifyPropertyChanged();
+                SendCommand?.RaiseCanExecute();
+            }
+        }
+        public Rover CurrentRover 
+        { 
+            get => currentRover;
+            set 
+            { 
+                currentRover = value; 
+                //NotifyPropertyChanged();
+                SendCommand?.RaiseCanExecute();
+            }
+        }
+        public List<Tuple<int, int>> Path { get; set; }
 
         public INavigation Navigation { get; set; }
 
@@ -128,6 +152,12 @@ namespace MarsRoverApp.ViewModel
         public void RaiseRedrawCanvas()
         {
             RedrawCanvas?.Invoke(this, new EventArgs());
+        }
+
+        public void SendImage(string base64)
+        {
+            var client = new RoverServiceClient();
+            client.UploadImage(base64);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using MarsRoverApp.WebService;
 using System;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace MarsRoverApp.ViewModel.Commands
 {
@@ -24,7 +23,8 @@ namespace MarsRoverApp.ViewModel.Commands
         {
             var client = new RoverServiceClient();
             VM.Result = await client.SetupPlateauAsync(VM.UpperBoundX, VM.UpperBoundY);
-            VM.RaiseRedrawCanvas();
+            VM.CurrentPlateau = new MarsRoverApiModel.Plateau(VM.UpperBoundX, VM.UpperBoundY);
+            VM.Path = null;
         }
     }
 }

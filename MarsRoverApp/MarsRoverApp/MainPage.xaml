@@ -27,95 +27,103 @@
             Command="{Binding GetHistoryCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <StackLayout
-        Margin="5">
-        <!-- Place new controls here -->
-        <Label Text="Upper Bounds"/>
-        <StackLayout 
-            Orientation="Horizontal"
-            HorizontalOptions="Center">
-            <Label Text="x:"/>
-            <Entry Text="{Binding UpperBoundX}"
-                   Placeholder="0"
-                   Keyboard="Numeric"
-                   StyleClass="NumericEntry"
-                   Focused="Entry_Focused"/>
-            <Label Text="y:"/>
-            <Entry Text="{Binding UpperBoundY}"
-                   Placeholder="0"
-                   Keyboard="Numeric"
-                   StyleClass="NumericEntry"
-                   Focused="Entry_Focused"/>
-        </StackLayout>
-        <Button 
-            Text="Setup Plateau"
-            Command="{Binding SetupPlateauCommand}"/>
-        
-        
-        <Label Text="Initial Rover Position"/>
-        <StackLayout 
-            Orientation="Horizontal"
-            HorizontalOptions="Center">
-            <Label Text="x:"/>
-            <Entry 
-                Text="{Binding InitialPositionX}"
-                Placeholder="0"
-                Keyboard="Numeric"
-                StyleClass="NumericEntry"
-                Focused="Entry_Focused"/>
-            <Label Text="y:"/>
-            <Entry
-                Text="{Binding InitialPositionY}"
-                Placeholder="0"
-                Keyboard="Numeric"
-                StyleClass="NumericEntry"
-                Focused="Entry_Focused"/>
-        </StackLayout>
-        <Picker SelectedItem="{Binding InitialHeading}">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>North</x:String>
-                    <x:String>East</x:String>
-                    <x:String>South</x:String>
-                    <x:String>West</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
-        <Button 
-            Text="Setup Rover"
-            Command="{Binding SetupRoverCommand}"/>
-
+    <ScrollView>
         <StackLayout
-            Orientation="Horizontal"
-            HorizontalOptions="Center">
-            <Button
-                Text="←"
-                StyleClass="ArrowButton"
-                Command="{Binding ArrowButtonCommand}"
-                CommandParameter="←"/>
-            <Button
-                Text="↑"
-                StyleClass="ArrowButton"
-                Command="{Binding ArrowButtonCommand}"
-                CommandParameter="↑"/>
-            <Button
-                Text="→"
-                StyleClass="ArrowButton"
-                Command="{Binding ArrowButtonCommand}"
-                CommandParameter="→"/>
-            <Button
-                Text="C"
-                StyleClass="ArrowButton"
-                Command="{Binding ArrowButtonCommand}"
-                CommandParameter="C"/>
-        </StackLayout>
-        
-        <Entry Text="{Binding Command, Mode=TwoWay}"/>
-        <Label Text="{Binding Result, Mode=OneWay}"/>
-        <Button Text="Send Command" Command="{Binding SendCommand}"
-                Focused="Entry_Focused"/>
+            Margin="5">
+            <!-- Place new controls here -->
+            <Label Text="Upper Bounds"/>
+            <StackLayout 
+                Orientation="Horizontal"
+                HorizontalOptions="Center">
+                <Label Text="x:"/>
+                <Entry Text="{Binding UpperBoundX}"
+                       Placeholder="0"
+                       Keyboard="Numeric"
+                       StyleClass="NumericEntry"
+                       Focused="Entry_Focused"/>
+                <Label Text="y:"/>
+                <Entry Text="{Binding UpperBoundY}"
+                       Placeholder="0"
+                       Keyboard="Numeric"
+                       StyleClass="NumericEntry"
+                       Focused="Entry_Focused"/>
+            </StackLayout>
+            <Button 
+                Text="Setup Plateau"
+                Command="{Binding SetupPlateauCommand}"/>
 
-        <skia:SKCanvasView x:Name="canvas" PaintSurface="canvas_PaintSurface"/>
-    </StackLayout>
+
+            <Label Text="Initial Rover Position"/>
+            <StackLayout 
+                Orientation="Horizontal"
+                HorizontalOptions="Center">
+                <Label Text="x:"/>
+                <Entry 
+                    Text="{Binding InitialPositionX}"
+                    Placeholder="0"
+                    Keyboard="Numeric"
+                    StyleClass="NumericEntry"
+                    Focused="Entry_Focused"/>
+                <Label Text="y:"/>
+                <Entry
+                    Text="{Binding InitialPositionY}"
+                    Placeholder="0"
+                    Keyboard="Numeric"
+                    StyleClass="NumericEntry"
+                    Focused="Entry_Focused"/>
+            </StackLayout>
+            <Picker SelectedItem="{Binding InitialHeading}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>North</x:String>
+                        <x:String>East</x:String>
+                        <x:String>South</x:String>
+                        <x:String>West</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Button 
+                Text="Setup Rover"
+                Command="{Binding SetupRoverCommand}"/>
+
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="Center">
+                <Button
+                    Text="←"
+                    StyleClass="ArrowButton"
+                    Command="{Binding ArrowButtonCommand}"
+                    CommandParameter="←"/>
+                <Button
+                    Text="↑"
+                    StyleClass="ArrowButton"
+                    Command="{Binding ArrowButtonCommand}"
+                    CommandParameter="↑"/>
+                <Button
+                    Text="→"
+                    StyleClass="ArrowButton"
+                    Command="{Binding ArrowButtonCommand}"
+                    CommandParameter="→"/>
+                <Button
+                    Text="C"
+                    StyleClass="ArrowButton"
+                    Command="{Binding ArrowButtonCommand}"
+                    CommandParameter="C"/>
+            </StackLayout>
+
+            <Entry Text="{Binding Command, Mode=TwoWay}"/>
+            <Label Text="{Binding Result, Mode=OneWay}"/>
+            <Button Text="Send Command" 
+                    Command="{Binding SendCommand}"
+                    Focused="Entry_Focused"/>
+
+            <skia:SKCanvasView 
+                x:Name="canvas" 
+                PaintSurface="Canvas_PaintSurface"
+                WidthRequest="300"
+                HeightRequest="300"
+                HorizontalOptions="Center"/>
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

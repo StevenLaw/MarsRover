@@ -1,13 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MarsRoverApi.Controllers;
-using System;
+﻿using MarsRoverApiModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MarsRoverApiModel;
-using System.Web.Http.Results;
-using System.Diagnostics;
 
 namespace MarsRoverApi.Controllers.Tests
 {
@@ -51,7 +44,7 @@ namespace MarsRoverApi.Controllers.Tests
                 {
                     Command = "1 3 N",
                     Input = false
-                }, 
+                },
                 new HistoryRecord
                 {
                     Command = "3 3 E",
@@ -195,7 +188,7 @@ namespace MarsRoverApi.Controllers.Tests
                 Type = CommandType.SetupRover
             });
             string moveResult2 = controller.Post(new CommandBody
-            { 
+            {
                 Command = "MMRMMRMRRM",
                 Type = CommandType.Move
             });
@@ -328,9 +321,23 @@ namespace MarsRoverApi.Controllers.Tests
             controller.Delete();
             var afterCount = controller.Get().Count;
 
-            //Assert
+            // Assert
             Assert.IsTrue(beforeCount > 0, "Before count should be more than zero");
             Assert.AreEqual(0, afterCount);
+        }
+
+        [TestMethod()]
+        public void PutTest()
+        {
+            // Arrange
+            var controller = new RoverController();
+            string base64 = "iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAYAAAB5fY51AAAABHNCSVQICAgIfAhkiAAABKdJREFUeJzt18Gt01AQQFEH/XZSDQ2lx6GfxwIhgvQRAQTmPp+zSeRkMbO5Gt9mZh0ABVcK1sws++7LvnubmfXh7CEAXiVYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQcTuOY509xL80M2ePAPymy11Y9/v97BGAP3ClC2sdF9p3ZtbM2HdTV9z3chcW0CVYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWEDG2/ryub4+uB3H7axh/orHt92Ox7vP9toXNubCAjIEC8i4rafXwePY7X3wBx7fvs7HOW8O4Jdc78J6/PwvwP/pvQtrryPr8f1+7/y+175PZmYdx3Hc7/dtd3xm373NzLrehQVkCRaQ8fZpZu+T8umV72onNOzGhQVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkHGbmXX2EACvcGEBHVe6sGZm2Xdf9t3bzCwXFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkHGbmXX2EACvcGEBHVe6sGZm2Xdf9t3bzCwXFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkHGbmXX2EACv+Axn2b10aWjoEgAAAABJRU5ErkJggg==";
+
+            // Act
+            controller.Put(new CommandBody { Command = base64 });
+
+            // Assert
+            Assert.IsNotNull(RoverController.LastImage);
         }
     }
 }

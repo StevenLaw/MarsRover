@@ -1,8 +1,9 @@
 ﻿using MarsRoverApiModel;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Web.Http;
 
 namespace MarsRoverApi.Controllers
@@ -13,6 +14,8 @@ namespace MarsRoverApi.Controllers
         private static Rover rover = new Rover();
 
         private static List<HistoryRecord> history = new List<HistoryRecord>();
+
+        public static Image LastImage { get; private set; }
 
         /// <summary>
         /// Get route "api/rover"
@@ -78,6 +81,16 @@ namespace MarsRoverApi.Controllers
             plateau = new Plateau();
             rover = new Rover();
             history.Clear();
+        }
+
+        public void Put([FromBody]CommandBody image)
+        {
+            byte[] bytes = Convert.FromBase64String(image.Command);
+
+            using (var ms = new MemoryStream(bytes))
+            {
+                LastImage = Image.FromStream(ms);
+            }
         }
 
         /// <summary>

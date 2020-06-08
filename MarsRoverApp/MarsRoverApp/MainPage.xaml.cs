@@ -1,8 +1,8 @@
 ﻿using MarsRoverApp.ViewModel;
-using MarsRoverApp.WebService;
 using SkiaSharp;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -37,31 +37,88 @@ namespace MarsRoverApp
             }
         }
 
-        private void canvas_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+        private void Canvas_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
         {
             if (BindingContext is MarsRoverModel model)
             {
-                if (model.UpperBoundX > 0 && model.UpperBoundY > 0)
+                if (model.CurrentPlateau != null &&
+                    model.CurrentRover != null)
                 {
                     SKImageInfo info = e.Info;
                     SKSurface surface = e.Surface;
                     SKCanvas canvas = surface.Canvas;
 
+                    canvas.Clear();
+
                     SKPaint gridLinePaint = new SKPaint
                     {
                         Style = SKPaintStyle.Stroke,
-                        Color = SKColors.Gray,
+                        Color = SKColors.LightGray,
                         StrokeWidth = 2
                     };
 
-                    for (int i = 0; i <= model.UpperBoundX; i++)
+                    SKPaint startPointPaint = new SKPaint
                     {
-                        canvas.DrawLine(i / info.Height, 0, i / info.Height, info.Width, gridLinePaint);
+                        Style = SKPaintStyle.Stroke,
+                        Color = SKColors.Green,
+                        StrokeWidth = 8
+                    };
+
+                    SKPaint endPointPaint = new SKPaint
+                    {
+                        Style = SKPaintStyle.Stroke,
+                        Color = SKColors.Red,
+                        StrokeWidth = 8
+                    };
+
+                    SKPaint pathLinePaint = new SKPaint
+                    {
+                        Style = SKPaintStyle.Stroke,
+                        Color = SKColors.Black,
+                        StrokeWidth = 2
+                    };
+
+                    float xBreak = (float)info.Width / model.CurrentPlateau.UpperX;
+                    for (int i = 0; i <= model.CurrentPlateau.UpperX; i++)
+                    {
+                        canvas.DrawLine(xBreak * i, 0, xBreak * i, info.Width, gridLinePaint);
                     }
 
-                    for (int i = 0; i <= model.UpperBoundY; i++)
+                    float yBreak = (float)info.Height / model.CurrentPlateau.UpperY;
+                    for (int i = 0; i <= model.CurrentPlateau.UpperY; i++)
                     {
-                        canvas.DrawLine(0, i / info.Width, info.Height, i / info.Width, gridLinePaint);
+                        canvas.DrawLine(0, yBreak * i, info.Height, yBreak * i, gridLinePaint);
+                    }
+
+                    if (model.Path != null)
+                    {
+                        Tuple<float, float> lastPos = null;
+                        foreach (var pos in model.Path)
+                        {
+                            float posX = pos.Item1 * xBreak;
+                            float posY = pos.Item2 * yBreak;
+                            if (lastPos == null)
+                            {
+                                canvas.DrawPoint(posX, posY, startPointPaint);
+                            }
+                            else
+                            {
+                                canvas.DrawLine(lastPos.Item1, lastPos.Item2, posX, posY, pathLinePaint);
+                            }
+                            lastPos = new Tuple<float, float>(posX, posY);
+                        }
+                        canvas.DrawPoint(lastPos.Item1, lastPos.Item2, endPointPaint);
+
+                        using (var snapshot = surface.Snapshot())
+                        using (var data = snapshot.Encode(SKEncodedImageFormat.Png, 80))
+                        using (var ms = new MemoryStream())
+                        {
+                            data.SaveTo(ms);
+                            byte[] imageBytes = ms.ToArray();
+
+                            string base64String = Convert.ToBase64String(imageBytes);
+                            model.SendImage(base64String);
+                        }
                     }
                 }
             }

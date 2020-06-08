@@ -1,7 +1,6 @@
 ﻿using MarsRoverApp.WebService;
 using System;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace MarsRoverApp.ViewModel.Commands
 {
@@ -24,6 +23,7 @@ namespace MarsRoverApp.ViewModel.Commands
         {
             var client = new RoverServiceClient();
             VM.Result = await client.SetupRoverAsync(VM.InitialPositionX, VM.InitialPositionY, VM.HeadingChar);
+            VM.CurrentRover = new MarsRoverApiModel.Rover(VM.InitialPositionX, VM.InitialPositionY, VM.HeadingChar);
         }
     }
 }

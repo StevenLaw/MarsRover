@@ -1,13 +1,9 @@
 ﻿using MarsRoverApiModel;
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MarsRoverApp.WebService
@@ -72,6 +68,19 @@ namespace MarsRoverApp.WebService
                     "application/json");
                 var response = await client.PostAsync(baseUri, content);
                 return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        public void UploadImage(string base64)
+        {
+            using (var client = new HttpClient())
+            {
+                var content = new StringContent(
+                    JsonConvert.SerializeObject(
+                        new CommandBody { Type = CommandType.UploadImage, Command = base64 }),
+                    Encoding.UTF8,
+                    "application/json");
+                client.PutAsync(baseUri, content);
             }
         }
     }

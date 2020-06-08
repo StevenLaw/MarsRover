@@ -1,7 +1,6 @@
 ﻿using MarsRoverApp.WebService;
 using System;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace MarsRoverApp.ViewModel.Commands
 {
@@ -17,14 +16,22 @@ namespace MarsRoverApp.ViewModel.Commands
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return VM.CurrentPlateau != null && VM.CurrentRover != null;
         }
 
         public async void Execute(object parameter)
         {
             var client = new RoverServiceClient();
             VM.Result = await client.MoveAsync(VM.Command);
+            VM.CurrentRover.Move(VM.Command, VM.CurrentPlateau);
+            VM.Path = VM.CurrentRover.Path;
             VM.Command = "";
+            VM.RaiseRedrawCanvas();
+        }
+
+        public void RaiseCanExecute()
+        {
+            CanExecuteChanged?.Invoke(this, new EventArgs());
         }
     }
 }
