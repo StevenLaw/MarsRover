@@ -9,7 +9,7 @@ namespace MarsRoverApi.Areas.HelpPage.Controllers
     /// <summary>
     /// The controller that will handle requests for the help page.
     /// </summary>
-    public class HelpController : Controller
+    public class HelpController : Microsoft.AspNetCore.Mvc.Controller
     {
         private const string ErrorViewName = "Error";
 
@@ -25,13 +25,13 @@ namespace MarsRoverApi.Areas.HelpPage.Controllers
 
         public HttpConfiguration Configuration { get; private set; }
 
-        public ActionResult Index()
+        public Microsoft.AspNetCore.Mvc.ActionResult Index()
         {
             ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();
             return View(Configuration.Services.GetApiExplorer().ApiDescriptions);
         }
 
-        public ActionResult Api(string apiId)
+        public Microsoft.AspNetCore.Mvc.ActionResult Api(string apiId)
         {
             if (!String.IsNullOrEmpty(apiId))
             {
@@ -45,7 +45,7 @@ namespace MarsRoverApi.Areas.HelpPage.Controllers
             return View(ErrorViewName);
         }
 
-        public ActionResult ResourceModel(string modelName)
+        public Microsoft.AspNetCore.Mvc.ActionResult ResourceModel(string modelName)
         {
             if (!String.IsNullOrEmpty(modelName))
             {

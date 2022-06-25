@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace MarsRoverApi.Controllers
 {
-    public class RoverController : ApiController
+    public class RoverController : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         private static Plateau plateau = new Plateau();
         private static Rover rover = new Rover();

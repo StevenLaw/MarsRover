@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace MarsRoverApi.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Microsoft.AspNetCore.Mvc.Controller
     {
-        public ActionResult Index()
+        public Microsoft.AspNetCore.Mvc.ActionResult Index()
         {
             ViewBag.Title = "Home Page";
 
