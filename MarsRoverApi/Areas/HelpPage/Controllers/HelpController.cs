@@ -1,8 +1,7 @@
-using System;
-using System.Web.Http;
-using System.Web.Mvc;
 using MarsRoverApi.Areas.HelpPage.ModelDescriptions;
 using MarsRoverApi.Areas.HelpPage.Models;
+using System;
+using System.Web.Http;
 
 namespace MarsRoverApi.Areas.HelpPage.Controllers
 {
@@ -12,11 +11,6 @@ namespace MarsRoverApi.Areas.HelpPage.Controllers
     public class HelpController : Microsoft.AspNetCore.Mvc.Controller
     {
         private const string ErrorViewName = "Error";
-
-        public HelpController()
-            : this(GlobalConfiguration.Configuration)
-        {
-        }
 
         public HelpController(HttpConfiguration config)
         {

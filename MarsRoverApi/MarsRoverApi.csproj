@@ -8,11 +8,6 @@
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Content Update="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -23,13 +18,38 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\css\bootstrap-theme.css" />
+    <None Include="wwwroot\css\bootstrap-theme.css.map" />
+    <None Include="wwwroot\css\bootstrap-theme.min.css" />
+    <None Include="wwwroot\css\bootstrap-theme.min.css.map" />
+    <None Include="wwwroot\css\bootstrap.css" />
+    <None Include="wwwroot\css\bootstrap.css.map" />
+    <None Include="wwwroot\css\bootstrap.min.css" />
+    <None Include="wwwroot\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\css\Site.css" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\js\bootstrap.js" />
+    <None Include="wwwroot\js\bootstrap.min.js" />
+    <None Include="wwwroot\js\jquery-3.4.1.intellisense.js" />
+    <None Include="wwwroot\js\jquery-3.4.1.js" />
+    <None Include="wwwroot\js\jquery-3.4.1.min.js" />
+    <None Include="wwwroot\js\jquery-3.4.1.min.map" />
+    <None Include="wwwroot\js\jquery-3.4.1.slim.js" />
+    <None Include="wwwroot\js\jquery-3.4.1.slim.min.js" />
+    <None Include="wwwroot\js\jquery-3.4.1.slim.min.map" />
+    <None Include="wwwroot\js\modernizr-2.8.3.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarsRoverApiModel\MarsRoverApiModel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="bootstrap" Version="3.4.1" />
-    <PackageReference Include="jQuery" Version="3.4.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.HelpPage" Version="5.2.7" />

@@ -2,13 +2,13 @@
 @using MarsRoverApi.Areas.HelpPage
 @model InvalidSample
 
-@if (HttpContextHelper.Current.IsDebuggingEnabled)
+@*@if (HttpContextHelper.Current)
 {
     <div class="warning-message-container">
         <p>@Model.ErrorMessage</p>
     </div>
 }
 else
-{
+{*@
     <p>Sample not available.</p>
-}
+@*}*@
