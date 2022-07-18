@@ -1,13 +1,15 @@
 ﻿using MarsRoverApiModel;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Web.Http;
 
 namespace MarsRoverApi.Controllers
 {
+    [Controller]
+    [Route("api/[controller]")]
     public class RoverController : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         private static Plateau plateau = new Plateau();
@@ -23,6 +25,7 @@ namespace MarsRoverApi.Controllers
         /// <returns>
         /// the history list.
         /// </returns>
+        [HttpGet]
         public List<HistoryRecord> Get()
         {
             return history;
@@ -35,6 +38,7 @@ namespace MarsRoverApi.Controllers
         /// <returns>
         /// the history item at the index, null if the index is out of range.
         /// </returns>
+        [HttpGet("rover/{index}")]
         public HistoryRecord Get(int index)
         {
             if (index < history.Count)
@@ -49,6 +53,7 @@ namespace MarsRoverApi.Controllers
         /// <returns>
         /// the result of the commmand sent.
         /// </returns>
+        [HttpPost]
         public string Post([FromBody] CommandBody body)
         {
             switch (body.Type)
@@ -76,6 +81,7 @@ namespace MarsRoverApi.Controllers
         /// <summary>
         /// Resets plateau, rover postion, and history.
         /// </summary>
+        [HttpDelete]
         public void Delete()
         {
             plateau = new Plateau();
@@ -83,6 +89,7 @@ namespace MarsRoverApi.Controllers
             history.Clear();
         }
 
+        [HttpPut]
         public void Put([FromBody]CommandBody image)
         {
             byte[] bytes = Convert.FromBase64String(image.Command);
